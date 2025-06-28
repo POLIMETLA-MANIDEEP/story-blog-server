@@ -1,13 +1,13 @@
 const express = require('express');
-const { uploadStory, getAllStories } = require('../controllers/storyControlller');
+const { uploadStory, getAllStories, getStoryById } = require('../controllers/storyControlller');
 const protect = require('../middleware/authMiddleware');
-const upload = require('../middleware/uploadMiddleware');
 
 const router = express.Router();
 
-router.post('/upload', protect, upload.single('storyFile'), uploadStory);
-
+router.post('/upload', protect, uploadStory); // ✅ No multer anymore
 router.get('/', getAllStories);
+
+router.get('/:id', getStoryById);
 
 
 module.exports = router;

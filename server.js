@@ -12,16 +12,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Static file serving (for uploaded story files, if applicable)
-app.use('/uploads', express.static('uploads'));
-
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.error('MongoDB error:', err));
 
-// 👉 Ensure admin is seeded once when server starts
+// 🛡 Ensure admin is seeded once when server starts
 async function ensureAdminUser() {
   try {
     const existing = await User.findOne({ email: 'admin@blog.com' });
